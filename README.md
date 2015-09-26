@@ -7,6 +7,16 @@ maximizes the similarity to the original picture.
 
 This idea is in no way original. See [Genetic Programming: Evolution of Mona Lisa](http://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/).
 
+## How to run it
+
+In the root of this project, do:
+
+```
+python -m SimpleHTTPServer
+```
+
+Then launch a browser and connect to http://localhost:8000
+
 ## How does it work?
 
 This program uses [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)
