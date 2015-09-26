@@ -27,6 +27,7 @@
   <script src="tri-ify.js"></script>
 
   <script>
+    var IMG_URL = "img/pic.jpg";
     var MAX_TRIANGLES = 50;
     var INITIAL_TEMP = 100;
     var MIN_TEMP = 0.0001;
@@ -35,7 +36,7 @@
 
     var srcImg = new Image();
     srcImg.onload = init;
-    srcImg.src = "img/pic.jpg";
+    srcImg.src = IMG_URL;
 
     function init() {
       var srcCanvas = document.getElementById("srcCanvas");
