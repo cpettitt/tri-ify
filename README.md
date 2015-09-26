@@ -17,6 +17,11 @@ python -m SimpleHTTPServer
 
 Then launch a browser and connect to http://localhost:8000
 
+## How to tweak it
+
+Open [index.html](/index.hml?raw=true) and look for the `BEGIN CONFIGURABLES`
+comment. You can change any of the configuration options there.
+
 ## How does it work?
 
 This program uses [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)

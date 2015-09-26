@@ -27,12 +27,14 @@
   <script src="tri-ify.js"></script>
 
   <script>
+    // BEGIN CONFIGURABLES...
     var IMG_URL = "img/pic.jpg";
     var MAX_TRIANGLES = 50;
     var INITIAL_TEMP = 100;
     var MIN_TEMP = 0.0001;
     var COOLING_FACTOR = 0.99;
     var ITERATIONS_PER_STEP = 400;
+    // END CONFIGURABLES
 
     var srcImg = new Image();
     srcImg.onload = init;
