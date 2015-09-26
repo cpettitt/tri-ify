@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tri-ify</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r72/three.min.js"></script>
+
+  <table>
+    <tr>
+      <td><canvas id="srcCanvas"></canvas>
+      <td><img id="result"></img>
+      <td>
+    </tr>
+    <tr>
+      <td id="computed">
+      <td><canvas id="diffCanvas"></canvas>
+      <td>
+        <strong>Cost:</strong> <span id="cost"></span>
+        <br/>
+        <strong>Temp:</strong> <span id="temp"></span>
+      </td>
+  </table>
+
+  <script src="tri-ify.js"></script>
+
+  <script>
+    var MAX_TRIANGLES = 50;
+    var INITIAL_TEMP = 100;
+    var MIN_TEMP = 0.0001;
+    var COOLING_FACTOR = 0.99;
+    var ITERATIONS_PER_STEP = 400;
+
+    var srcImg = new Image();
+    srcImg.onload = init;
+    srcImg.src = "img/pic.jpg";
+
+    function init() {
+      var srcCanvas = document.getElementById("srcCanvas");
+      var srcCtx = srcCanvas.getContext("2d");
+
+      var renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
+      renderer.setSize(this.width, this.height);
+      var camera = new THREE.OrthographicCamera(0, this.width, 0, this.height, 0, 1);
+      document.getElementById("computed").appendChild(renderer.domElement);
+
+      var diffCanvas = document.getElementById("diffCanvas");
+      var diffCtx = diffCanvas.getContext("2d");
+
+      // Load srcImg into canvas
+      diffCanvas.width = srcCanvas.width = this.width;
+      diffCanvas.height = srcCanvas.height = this.height;
+      srcCtx.drawImage(srcImg, 0, 0);
+
+      var resultImg = document.getElementById("result");
+
+      var state = new State(MAX_TRIANGLES, this.width, this.height);
+      var costFn = buildCostFunction(renderer, camera, srcCtx, diffCtx, this.width, this.height);
+      var opts = {
+        initialTemp: INITIAL_TEMP,
+        minTemp: MIN_TEMP,
+        coolingFactor: COOLING_FACTOR,
+        iterationsPerStep: ITERATIONS_PER_STEP,
+
+        stepCallback: function(state, cost, temp) {
+          state.draw(renderer, camera);
+          resultImg.src = renderer.domElement.toDataURL();
+          document.getElementById("cost").innerHTML = cost;
+          document.getElementById("temp").innerHTML = temp;
+          console.log("Cost:", cost, "Temp:", temp);
+        }
+      };
+      var sa = new SimulatedAnnealing(state, costFn, opts);
+
+      setTimeout(function() { sa.run(); }, 0);
+    }
+  </script>
+</body>
