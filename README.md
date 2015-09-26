@@ -9,7 +9,7 @@ This idea is in no way original. See [Genetic Programming: Evolution of Mona Lis
 
 ## How does it work?
 
-This program uses simulated annealing (https://en.wikipedia.org/wiki/Simulated_annealing)
+This program uses [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing)
 to do the optimization. We load an initial source image into a
 [2D canvas](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D),
 giving us access to the raw data. Then we generate an initial empty state for
