@@ -44,7 +44,7 @@
       var srcCanvas = document.getElementById("srcCanvas");
       var srcCtx = srcCanvas.getContext("2d");
 
-      var renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
+      var renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(this.width, this.height);
       var camera = new THREE.OrthographicCamera(0, this.width, 0, this.height, 0, 1);
       document.getElementById("computed").appendChild(renderer.domElement);
